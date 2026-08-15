@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexoMC — Skins</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<main id="skins-page">
+  <nav class="skins-nav">
+    <a href="../index.html" class="back-home">← NexoMC</a>
+    <div class="skins-nav-title">NexoMC Collection</div>
+    <button class="theme-btn" id="themeToggle" type="button">☼</button>
+  </nav>
+
+  <section class="skins-hero">
+    <p class="eyebrow">NEXOMC COLLECTION</p>
+    <h1>Choose Your Next Minecraft Skin</h1>
+    <p class="skins-subtitle">Koleksi skin Minecraft NexoMC — preview dari Catbox dan download melalui MediaFire.</p>
+  </section>
+
+  <section class="skins-grid" id="skinsGrid" aria-label="Minecraft skins"></section>
+</main>
+
+<script src="../data/skins.js"></script>
+<script>
+(function () {
+  const skins = window.NEXOMC_SKINS || [];
+  const grid = document.getElementById("skinsGrid");
+
+  function render() {
+    grid.innerHTML = skins.map(skin => `
+      <article class="skin-page-card">
+        <div class="skin-image-wrap">
+          <img src="${skin.image}" alt="${skin.name}" loading="lazy">
+        </div>
+        <div class="skin-page-info">
+          <span class="skin-category">${skin.category || "Minecraft Skin"}</span>
+          <h2>${skin.name}</h2>
+          <a class="skin-download" href="${skin.download}" target="_blank" rel="noopener noreferrer">
+            Download Skin ↗
+          </a>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  function applyTheme(theme) {
+    document.body.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("nexomc-theme", theme);
+  }
+
+  const saved = localStorage.getItem("nexomc-theme") || "dark";
+  applyTheme(saved);
+
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    applyTheme(document.body.classList.contains("dark") ? "light" : "dark");
+  });
+
+  render();
+})();
+</script>
+
+<style>
+body { min-height:100vh; }
+#skins-page { min-height:100vh; padding-bottom:60px; }
+.skins-nav {
+  position:sticky; top:0; z-index:20; display:flex; align-items:center;
+  justify-content:space-between; gap:16px; padding:16px 22px;
+  background:rgba(0,0,0,.72); backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.09);
+}
+.back-home { color:inherit; text-decoration:none; font-weight:800; }
+.skins-nav-title { font-weight:800; letter-spacing:.02em; }
+.theme-btn { cursor:pointer; }
+.skins-hero { max-width:1100px; margin:0 auto; padding:75px 22px 35px; }
+.eyebrow { font-size:.75rem; font-weight:800; letter-spacing:.18em; opacity:.55; }
+.skins-hero h1 { margin:10px 0; font-size:clamp(2rem,6vw,4.2rem); line-height:1.02; }
+.skins-subtitle { max-width:650px; opacity:.62; line-height:1.7; }
+.skins-grid {
+  max-width:1100px; margin:auto; padding:20px 22px;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px;
+}
+.skin-page-card {
+  overflow:hidden; border:1px solid rgba(255,255,255,.1); border-radius:24px;
+  background:rgba(255,255,255,.045); backdrop-filter:blur(16px);
+  transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.skin-page-card:hover { transform:translateY(-7px); border-color:rgba(255,255,255,.25); box-shadow:0 20px 50px rgba(0,0,0,.25); }
+.skin-image-wrap { aspect-ratio:1/1.15; overflow:hidden; background:rgba(0,0,0,.2); }
+.skin-image-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+.skin-page-info { padding:18px; }
+.skin-category { font-size:.7rem; opacity:.5; text-transform:uppercase; letter-spacing:.1em; font-weight:800; }
+.skin-page-info h2 { margin:7px 0 15px; }
+.skin-download {
+  display:block; text-align:center; text-decoration:none; color:#fff;
+  background:#ef4444; border-radius:13px; padding:12px 15px; font-weight:800;
+  transition:transform .2s ease, opacity .2s ease;
+}
+.skin-download:hover { transform:translateY(-2px); opacity:.9; }
+body:not(.dark) .skins-nav { background:rgba(255,255,255,.8); border-color:rgba(0,0,0,.08); }
+body:not(.dark) .skin-page-card { background:rgba(255,255,255,.75); border-color:rgba(0,0,0,.08); }
+body:not(.dark) .skin-download { color:#fff; }
+@media (max-width:600px) {
+  .skins-nav-title { display:none; }
+  .skins-hero { padding-top:50px; }
+}
+</style>
+</body>
+</html>
