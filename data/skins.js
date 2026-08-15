@@ -1,7 +1,3 @@
-// NexoMC skin collection
-// Preview images are hosted on Catbox.
-// Downloads use the MediaFire file link.
-
 window.NEXOMC_SKINS = [
   {
     id: "alex29",
