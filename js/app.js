@@ -122,4 +122,73 @@
     return String(v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
   function escapeAttr(v){return escapeHtml(v)}
+  // Animated network background: moving nodes + connecting lines.
+  const canvas = document.getElementById("networkCanvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    let nodes = [];
+    let width = 0, height = 0, dpr = 1;
+    const mouse = {x:-9999,y:-9999};
+
+    function resizeNetwork(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+
+      const count = Math.min(95, Math.max(38, Math.floor((width*height)/18000)));
+      nodes = Array.from({length:count},()=>({
+        x:Math.random()*width,
+        y:Math.random()*height,
+        vx:(Math.random()-.5)*.34,
+        vy:(Math.random()-.5)*.34,
+        r:Math.random()*1.7+.7
+      }));
+    }
+    function drawNetwork(){
+      ctx.clearRect(0,0,width,height);
+      const dark = !document.body.classList.contains("light");
+      const lineBase = dark ? "139,92,246" : "99,102,241";
+      const dotBase = dark ? "167,139,250" : "79,70,229";
+      for(const n of nodes){
+        n.x += n.vx; n.y += n.vy;
+        if(n.x < -20 || n.x > width+20) n.vx *= -1;
+        if(n.y < -20 || n.y > height+20) n.vy *= -1;
+        const dx=n.x-mouse.x, dy=n.y-mouse.y;
+        const dist=Math.hypot(dx,dy);
+        if(dist<120 && dist>0){
+          n.x += dx/dist*.12;
+          n.y += dy/dist*.12;
+        }
+      }
+      const maxDist = Math.min(155, Math.max(105,width/8));
+      for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+          const a=nodes[i], b=nodes[j];
+          const d=Math.hypot(a.x-b.x,a.y-b.y);
+          if(d<maxDist){
+            const alpha=(1-d/maxDist)*.24;
+            ctx.strokeStyle=`rgba(${lineBase},${alpha})`;
+            ctx.lineWidth=.65;
+            ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+          }
+        }
+      }
+      for(const n of nodes){
+        ctx.fillStyle=`rgba(${dotBase},.72)`;
+        ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();
+      }
+      requestAnimationFrame(drawNetwork);
+    }
+    window.addEventListener("resize",resizeNetwork,{passive:true});
+    window.addEventListener("pointermove",e=>{mouse.x=e.clientX;mouse.y=e.clientY},{passive:true});
+    window.addEventListener("pointerleave",()=>{mouse.x=-9999;mouse.y=-9999},{passive:true});
+    resizeNetwork();
+    drawNetwork();
+  }
+
 })();
