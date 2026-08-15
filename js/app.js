@@ -123,4 +123,3 @@
   }
   function escapeAttr(v){return escapeHtml(v)}
 })();
-
