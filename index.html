@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <canvas id="networkCanvas" aria-hidden="true"></canvas>
   <div class="page-glow glow-a"></div>
   <div class="page-glow glow-b"></div>
   <div class="grid-bg"></div>
@@ -58,7 +59,7 @@
         <div class="orb"></div>
         <div class="skin-stage">
           <div class="scanline"></div>
-          <img id="heroSkin" src="https://files.catbox.moe/b5xlwa.jpg" alt="Featured Minecraft skin"
+          <img id="heroSkin" src="assets/skins/skin1.png" alt="Featured Minecraft skin"
                onerror="this.src='https://files.catbox.moe/pdm86w.jpg'">
           <div class="stage-tag">NEXOMC // FEATURED</div>
         </div>
@@ -120,8 +121,16 @@
   </footer>
 
   <script src="config.js"></script>
-  
-<script src="./data/skins.js"></script>
-<script src="./js/app.js"></script>
+  <script src="data/skins.js"></script>
+  <script src="js/app.js"></script>
+
+<a href="./skins/" target="_self" class="skins-page-link">NexoMC Collection</a>
 </body>
 </html>
+
+<style>
+.skins-page-link{position:fixed;right:20px;bottom:20px;z-index:50;text-decoration:none;
+background:#ef4444;color:#fff;padding:12px 18px;border-radius:14px;font-weight:800;
+box-shadow:0 10px 30px rgba(0,0,0,.25);transition:.25s}
+.skins-page-link:hover{transform:translateY(-3px)}
+</style>
