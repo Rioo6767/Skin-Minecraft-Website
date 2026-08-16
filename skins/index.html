@@ -1,88 +1,15 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10150f">
-<title>NexoMC Skin — Minecraft Skin Collection</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/style.css">
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#050507"><title>NexoMC Skin — Collection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../css/style.css">
 <style>
-  :root{--mc-green:#55c83f;--mc-green2:#2f8f2b;--mc-dirt:#6d452c;--mc-stone:#30343a;--mc-gold:#f2c94c}
-  body{min-height:100vh;background:#0a0d09;overflow-x:hidden}
-  #skinNetwork{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.34}
-  .skin-page{position:relative;z-index:2;min-height:100vh}
-  .mc-topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;background:rgba(10,12,10,.9);backdrop-filter:blur(18px);border-bottom:2px solid #171b17;box-shadow:0 5px 0 rgba(0,0,0,.2)}
-  .mc-brand{display:flex;align-items:center;gap:11px;font-weight:800}
-  .mc-block{width:42px;height:42px;border:3px solid #101510;border-radius:5px;background:linear-gradient(180deg,var(--mc-green) 0 25%,#765033 25% 100%);box-shadow:inset 0 -5px rgba(0,0,0,.18),0 3px 0 #111}
-  .mc-brand strong{font:800 17px 'Press Start 2P',monospace;letter-spacing:-1px}
-  .mc-actions{display:flex;align-items:center;gap:8px}
-  .mc-home,.mc-theme{border:2px solid #30352f;background:#141814;color:#fff;border-radius:7px;padding:11px 13px;font-weight:800;cursor:pointer;text-decoration:none}
-  .mc-skin-btn{background:var(--mc-green);color:#081006;border-color:#8be47d;box-shadow:0 3px 0 #1f5d1b}
-  .mc-hero{max-width:1150px;margin:auto;padding:78px 22px 36px}
-  .mc-kicker{font:10px 'Press Start 2P',monospace;color:#7ee66d;letter-spacing:1px;line-height:1.8}
-  .mc-hero h1{font:800 clamp(28px,6vw,62px)/1.15 'Press Start 2P',monospace;letter-spacing:-2px;margin:20px 0;color:#f4f6f2;text-shadow:4px 4px 0 #000;max-width:900px}
-  .mc-hero h1 span{color:#7ee66d}
-  .mc-hero p{max-width:700px;color:#aeb7aa;line-height:1.8;font-size:15px}
-  .mc-world-bar{height:25px;margin-top:34px;border:2px solid #121711;background:linear-gradient(#65d14c 0 42%,#754b2f 42%);box-shadow:0 4px 0 #050705, inset 0 -5px rgba(0,0,0,.16)}
-  .mc-grid{max-width:1150px;margin:auto;padding:20px 22px 90px;display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:22px}
-  .mc-card{position:relative;overflow:hidden;background:#151a14;border:3px solid #080b08;border-radius:4px;box-shadow:0 0 0 2px #384033,0 12px 35px rgba(0,0,0,.35);transition:transform .25s ease,box-shadow .25s ease}
-  .mc-card:hover{transform:translateY(-6px);box-shadow:0 0 0 2px #6c7b65,0 18px 45px rgba(0,0,0,.5)}
-  .mc-card::before{content:"";position:absolute;inset:0 0 auto;height:7px;background:var(--mc-green);z-index:2}
-  .mc-preview{height:330px;margin:8px;background:#20261e;border:2px solid #343c31;display:flex;align-items:center;justify-content:center;overflow:hidden;background-image:linear-gradient(45deg,#242b22 25%,transparent 25%),linear-gradient(-45deg,#242b22 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#242b22 75%),linear-gradient(-45deg,transparent 75%,#242b22 75%);background-size:28px 28px;background-position:0 0,0 14px,14px -14px,-14px 0}
-  .mc-preview img{width:100%;height:100%;object-fit:cover;image-rendering:auto;display:block}
-  .mc-info{padding:17px;background:linear-gradient(#171c16,#111510)}
-  .mc-tag{display:inline-block;font:9px 'Press Start 2P',monospace;color:#8fe87f;background:#1d351b;border:1px solid #3d7037;padding:7px 8px;margin-bottom:12px}
-  .mc-info h2{font:700 17px 'Press Start 2P',monospace;line-height:1.5;color:#f5f6f3;margin-bottom:10px}
-  .mc-info p{color:#8f9b8a;font-size:12px;line-height:1.6;margin-bottom:14px}
-  .mc-download{display:block;text-align:center;text-decoration:none;background:var(--mc-green);color:#071006;font-weight:900;padding:13px 10px;border:2px solid #a4ed97;border-radius:3px;box-shadow:0 4px 0 #245e20;transition:.18s}
-  .mc-download:hover{transform:translateY(2px);box-shadow:0 2px 0 #245e20}
-  .mc-empty{grid-column:1/-1;padding:45px 20px;text-align:center;color:#9aa596;border:2px dashed #3b4738}
-  .mc-footer{border-top:3px solid #151a14;padding:35px 22px;text-align:center;color:#788275;font-size:11px;line-height:2}
-  .mc-footer b{font-family:'Press Start 2P',monospace;color:#7ee66d;font-size:9px}
-  @media(max-width:600px){.mc-topbar{padding:11px 12px}.mc-brand strong{font-size:11px}.mc-block{width:37px;height:37px}.mc-home{font-size:11px;padding:10px}.mc-skin-btn{display:none}.mc-hero{padding-top:55px}.mc-hero h1{font-size:25px}.mc-grid{grid-template-columns:1fr 1fr;gap:13px;padding-left:12px;padding-right:12px}.mc-preview{height:220px;margin:5px}.mc-info{padding:12px}.mc-info h2{font-size:11px}.mc-info p{font-size:10px}.mc-tag{font-size:7px;padding:5px}.mc-download{font-size:11px;padding:10px 4px}}
-</style>
-</head>
-<body>
-<canvas id="skinNetwork" aria-hidden="true"></canvas>
-<div class="skin-page">
-<header class="mc-topbar">
-  <a class="mc-brand" href="../index.html"><span class="mc-block"></span><strong>NexoMC</strong></a>
-  <div class="mc-actions">
-    <a class="mc-home" href="../index.html">← Home</a>
-    <button class="mc-theme" id="mcTheme" type="button">◐</button>
-    <span class="mc-home mc-skin-btn">NexoMC Skin</span>
-  </div>
-</header>
-
-<section class="mc-hero">
-  <div class="mc-kicker">NEXOMC // SKIN VAULT</div>
-  <h1>BUILD YOUR<br><span>NEXT SKIN.</span></h1>
-  <p>Pilih skin Minecraft yang cocok untuk petualanganmu. Preview di sini, lalu buka MediaFire untuk mengambil file PNG-nya.</p>
-  <div class="mc-world-bar"></div>
-</section>
-
-<section class="mc-grid" id="skinsGrid"></section>
-
-<footer class="mc-footer"><b>NEXOMC SKIN COLLECTION</b><br>Crafted for Minecraft players · © 2026 NexoMC</footer>
-</div>
-<script src="../data/skins.js"></script>
-<script>
+.skin-page-main{position:relative;z-index:2;max-width:1200px;margin:auto;padding:72px 22px 100px}.skin-page-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:32px}.skin-page-head h1{font-size:clamp(34px,6vw,66px);line-height:1.03;margin-top:10px}.skin-page-head h1 em{font-style:normal;color:#9b6cff}.skin-page-head p{color:var(--muted,#8f8f98);max-width:650px;line-height:1.7;margin-top:14px}.skin-back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);padding:11px 15px;border-radius:12px;font-weight:700;white-space:nowrap}.skin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:20px}.skin-card{background:rgba(12,12,16,.72);border:1px solid rgba(255,255,255,.1);border-radius:22px;overflow:hidden;backdrop-filter:blur(16px);transition:.3s}.skin-card:hover{transform:translateY(-6px);border-color:rgba(155,108,255,.45);box-shadow:0 20px 50px rgba(0,0,0,.28)}.skin-preview{aspect-ratio:1/1.15;background:rgba(255,255,255,.025);overflow:hidden}.skin-preview img{width:100%;height:100%;object-fit:cover;display:block}.skin-info{padding:18px}.skin-tag{font-size:10px;letter-spacing:.14em;color:#a987ff;font-weight:800}.skin-info h2{font-size:20px;margin:8px 0 14px}.skin-info p{color:#8d8d97;font-size:13px;line-height:1.6;margin-bottom:15px}.skin-download{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;color:#fff;background:linear-gradient(135deg,#7c4dff,#a56cff);padding:12px;border-radius:12px;font-weight:800;box-shadow:0 8px 25px rgba(124,77,255,.2)}.skin-empty{padding:60px;text-align:center;border:1px dashed rgba(255,255,255,.15);border-radius:20px;color:#8d8d97}.skin-page-footer{text-align:center;padding:35px 20px 55px;color:#666;position:relative;z-index:2;font-size:12px}@media(max-width:650px){.skin-page-main{padding:50px 14px 70px}.skin-page-head{display:block}.skin-back{margin-top:20px}.skin-grid{grid-template-columns:1fr 1fr;gap:12px}.skin-info{padding:13px}.skin-info h2{font-size:14px}.skin-info p{font-size:10px}.skin-download{font-size:11px;padding:10px 5px}.skin-tag{font-size:8px}}
+</style></head><body>
+<canvas id="networkCanvas" aria-hidden="true"></canvas><div class="page-glow glow-a"></div><div class="page-glow glow-b"></div><div class="grid-bg"></div>
+<header class="topbar"><a class="brand" href="../" aria-label="NexoMC home"><span class="brand-mark"><span></span><span></span></span><span><strong>NexoMC</strong><small><i></i> MINECRAFT COLLECTION</small></span></a><nav class="desktop-nav"><a href="#collection">Collection</a><a href="../#features">Why NexoMC</a><a href="../#footer">About</a></nav><div class="top-actions"><button class="icon-btn" id="themeBtn" aria-label="Ganti tema">◐</button><a class="deploy-btn" href="../" target="_self"><span>←</span> NexoMC Hub <b>↗</b></a></div></header>
+<main class="skin-page-main" id="collection"><section class="skin-page-head"><div><div class="eyebrow"><span class="pulse"></span> NEXOMC COLLECTION</div><h1>Your next <em>Minecraft Skin.</em></h1><p>Pilih skin favoritmu. Semua preview tersedia di sini dan tombol download akan membawa kamu langsung ke file MediaFire.</p></div><a class="skin-back" href="../">← Kembali ke NexoMC</a></section><section class="skin-grid" id="skinGrid"></section></main><footer class="skin-page-footer">© 2026 NEXOMC NETWORK. ENGINEERED FOR MINECRAFT.</footer>
+<script src="../config.js"></script><script src="../data/skins.js"></script><script>
 (function(){
-  const skins=window.NEXOMC_SKINS||[];
-  const grid=document.getElementById('skinsGrid');
-  grid.innerHTML=skins.length?skins.map(s=>`<article class="mc-card"><div class="mc-preview"><img src="${s.image}" alt="${s.name}" loading="lazy"></div><div class="mc-info"><span class="mc-tag">${s.category||'MINECRAFT SKIN'}</span><h2>${s.name}</h2><p>Ready-to-use Minecraft skin · NexoMC</p><a class="mc-download" href="${s.download}" target="_blank" rel="noopener noreferrer">DOWNLOAD PNG ↗</a></div></article>`).join(''):'<div class="mc-empty">Belum ada skin di collection.</div>';
-  const theme=localStorage.getItem('nexomc-theme')||'dark';
-  document.body.classList.toggle('light',theme==='light');
-  document.getElementById('mcTheme').onclick=()=>{const light=!document.body.classList.contains('light');document.body.classList.toggle('light',light);localStorage.setItem('nexomc-theme',light?'light':'dark');};
-
-  const c=document.getElementById('skinNetwork'),ctx=c.getContext('2d');let ns=[],w,h,dpr;
-  function resize(){dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);ns=Array.from({length:Math.min(60,Math.max(28,Math.floor(w*h/24000)))},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));}
-  function draw(){ctx.clearRect(0,0,w,h);for(const n of ns){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>w)n.vx*=-1;if(n.y<0||n.y>h)n.vy*=-1;}for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const a=ns[i],b=ns[j],dd=Math.hypot(a.x-b.x,a.y-b.y);if(dd<125){ctx.strokeStyle=`rgba(85,200,63,${(1-dd/125)*.16})`;ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}for(const n of ns){ctx.fillStyle='rgba(126,230,109,.55)';ctx.fillRect(n.x,n.y,2,2);}requestAnimationFrame(draw)}
-  addEventListener('resize',resize);resize();draw();
+const skins=window.NEXOMC_SKINS||[],grid=document.getElementById('skinGrid');grid.innerHTML=skins.length?skins.map(s=>`<article class="skin-card"><div class="skin-preview"><img src="${s.image}" alt="${s.name}" loading="lazy"></div><div class="skin-info"><div class="skin-tag">${s.category||'MINECRAFT SKIN'}</div><h2>${s.name}</h2><p>Ready-to-use Minecraft skin dari NexoMC Collection.</p><a class="skin-download" href="${s.download}" target="_blank" rel="noopener noreferrer">DOWNLOAD PNG <span>↗</span></a></div></article>`).join(''):'<div class="skin-empty">Belum ada skin di collection.</div>';
+const btn=document.getElementById('themeBtn'),saved=localStorage.getItem('nexomc-theme')||'dark';document.body.classList.toggle('light',saved==='light');btn.onclick=()=>{const light=!document.body.classList.contains('light');document.body.classList.toggle('light',light);localStorage.setItem('nexomc-theme',light?'light':'dark');};
 })();
-</script>
-</body>
-</html>
+</script><script src="../js/app.js"></script></body></html>
