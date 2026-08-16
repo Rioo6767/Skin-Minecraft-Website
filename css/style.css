@@ -55,11 +55,22 @@ footer{border-top:1px solid var(--line);max-width:1120px;margin:auto;padding:45p
   pointer-events:none;
   opacity:.72;
 }
-body > .page-glow,
-body > .grid-bg,
-body > header,
-body > main,
-body > footer{position:relative}
-body > .page-glow{z-index:1}
-body > .grid-bg{z-index:1}
-body > header, body > main, body > footer{z-index:2}
+body > .page-glow, body > .grid-bg{z-index:1}
+body > header{z-index:100}
+body > main, body > footer{position:relative;z-index:2}
+
+/* NexoMC navigation fix: keep the topbar visible while scrolling. */
+body > header.topbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+}
+body > main, body > footer { position: relative; z-index: 2; }
+body > .page-glow, body > .grid-bg { z-index: 1; }
+
+/* Avoid an empty visual area when the featured preview is unavailable. */
+.hero-art { min-height: 460px; }
+.skin-stage img { opacity: 1; }
+@media (max-width: 850px) {
+  .hero-art { min-height: 350px; }
+}
