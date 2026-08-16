@@ -95,3 +95,51 @@ body > .page-glow, body > .grid-bg { z-index: 1; }
   .hero h1 { font-size: clamp(31px, 8.6vw, 48px); letter-spacing:-1.8px; }
   #typedTitle { max-width: calc(100vw - 40px); }
 }
+
+/* Compact hero spacing — keeps the typography size but removes excessive vertical gaps. */
+.hero {
+  min-height: auto;
+  padding: 58px 6vw 58px;
+  align-items: start;
+}
+.hero-copy {
+  padding-top: 0;
+}
+.hero .eyebrow {
+  margin-bottom: 12px;
+}
+.hero h1 {
+  margin: 0;
+  line-height: 1.02;
+}
+.hero-desc {
+  margin: 18px auto 20px;
+  line-height: 1.68;
+}
+.hero-actions {
+  margin-top: 0;
+}
+.hero-status {
+  margin-top: 18px;
+}
+@media (max-width: 850px) {
+  .hero {
+    min-height: auto;
+    padding: 54px 20px 50px;
+  }
+}
+@media (max-width: 520px) {
+  .hero {
+    padding: 48px 20px 46px;
+  }
+  .hero .eyebrow {
+    margin-bottom: 10px;
+  }
+  .hero-desc {
+    margin-top: 15px;
+    margin-bottom: 18px;
+  }
+  .hero-status {
+    margin-top: 16px;
+  }
+}
