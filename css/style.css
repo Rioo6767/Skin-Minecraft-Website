@@ -74,3 +74,24 @@ body > .page-glow, body > .grid-bg { z-index: 1; }
 @media (max-width: 850px) {
   .hero-art { min-height: 350px; }
 }
+
+/* Final UI refinements */
+.hero { grid-template-columns: 1fr; }
+.hero-copy { max-width: 920px; margin: 0 auto; }
+.hero h1 { min-height: 1.05em; }
+#typedTitle {
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.hero-copy .hero-desc { max-width: 700px; }
+@media(max-width:850px){
+  .hero { grid-template-columns:1fr; }
+  .hero-copy { width:100%; }
+}
+@media(max-width:520px){
+  .hero h1 { font-size: clamp(31px, 8.6vw, 48px); letter-spacing:-1.8px; }
+  #typedTitle { max-width: calc(100vw - 40px); }
+}
