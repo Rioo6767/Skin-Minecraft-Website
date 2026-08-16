@@ -3,7 +3,7 @@ window.NEXOMC_CONFIG = {
   year: 2026,
 
   // Link tombol di navbar. Akan dibuka di TAB BARU.
-  hubUrl: "#collection",
+  hubUrl: "./skins/",
 
   // Kecepatan efek mengetik hero.
   typingSpeed: 85,
