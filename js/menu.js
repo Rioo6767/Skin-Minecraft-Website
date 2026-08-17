@@ -24,37 +24,33 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
 
   const groups=[...drawer.querySelectorAll('.menu-group')];
+
+  // The accordion is CSS-driven (grid rows) instead of max-height/scrollHeight.
+  // This avoids forced layout reads and makes opening/closing much smoother on mobile.
   const setGroup=(group,isOpen)=>{
     const btn=group.querySelector('.menu-group-toggle');
-    const items=group.querySelector('.menu-items');
     group.classList.toggle('open',isOpen);
-    btn&&btn.setAttribute('aria-expanded',isOpen?'true':'false');
-    if(items){
-      if(isOpen){
-        items.style.maxHeight=items.scrollHeight+'px';
-      }else{
-        items.style.maxHeight='0px';
-      }
-    }
+    if(btn) btn.setAttribute('aria-expanded',isOpen?'true':'false');
   };
+
+  // Always start with every category closed.
+  groups.forEach(group=>setGroup(group,false));
 
   groups.forEach(group=>{
     const btn=group.querySelector('.menu-group-toggle');
     if(!btn)return;
-    setGroup(group,group.classList.contains('open'));
     btn.addEventListener('click',()=>{
       const shouldOpen=!group.classList.contains('open');
-      // Only one category may stay open at a time.
-      groups.forEach(other=>{if(other!==group)setGroup(other,false);});
+      // One open category at a time.
+      groups.forEach(other=>{
+        if(other!==group) setGroup(other,false);
+      });
       setGroup(group,shouldOpen);
     });
   });
 
-  window.addEventListener('resize',()=>{
-    const openGroup=drawer.querySelector('.menu-group.open');
-    const items=openGroup&&openGroup.querySelector('.menu-items');
-    if(items)items.style.maxHeight=items.scrollHeight+'px';
-  },{passive:true});
-
-  drawer.querySelectorAll('[data-coming-soon]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();close();}));
+  drawer.querySelectorAll('[data-coming-soon]').forEach(a=>a.addEventListener('click',e=>{
+    e.preventDefault();
+    close();
+  }));
 })();
