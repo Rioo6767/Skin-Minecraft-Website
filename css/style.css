@@ -230,6 +230,19 @@ body > .page-glow, body > .grid-bg { z-index: 1; }
 }
 
 /* ===== NexoMC Main Menu — smooth mobile panel ===== */
+/* Touch / selection polish: menu controls should behave like native app controls,
+   without the blue text-selection/tap flash seen on mobile browsers. */
+.menu-btn,.menu-close,.menu-group-toggle,.menu-item,.menu-group-icon,.menu-item-icon,.menu-chevron,.menu-icon,.menu-title,.menu-note{
+  -webkit-tap-highlight-color:transparent;
+  -webkit-user-select:none;
+  user-select:none;
+}
+.menu-btn:focus,.menu-close:focus,.menu-group-toggle:focus,.menu-item:focus{outline:none}
+.menu-btn:focus-visible,.menu-close:focus-visible,.menu-group-toggle:focus-visible,.menu-item:focus-visible{
+  outline:2px solid rgba(155,108,255,.65);
+  outline-offset:2px;
+}
+.menu-group-toggle,.menu-item{-webkit-touch-callout:none}
 .menu-btn{height:44px;padding:0 13px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);display:flex;align-items:center;gap:9px;font-weight:800;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
 .menu-btn:hover{border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.08);transform:translateY(-1px)}
 .menu-icon{width:18px;height:18px;display:grid;align-content:center;gap:4px;flex:0 0 18px}
@@ -253,11 +266,9 @@ body > .page-glow, body > .grid-bg { z-index: 1; }
 .menu-chevron{width:20px;height:20px;transition:transform .22s ease;display:grid;place-items:center;color:var(--accent2)}
 .menu-chevron svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .menu-group.open .menu-chevron{transform:rotate(180deg)}
-/* Height animation is driven by menu.js to avoid grid reflow stutter on mobile. */
-.menu-items{max-height:0;overflow:hidden;opacity:0;border-top:0 solid var(--line);transition:max-height .28s cubic-bezier(.22,.8,.24,1),opacity .18s ease,border-top-width .2s ease}
-.menu-group.open .menu-items{opacity:1;border-top-width:1px}
-.menu-items-inner{padding:0 10px;overflow:hidden}
-.menu-group.open .menu-items-inner{padding:10px}
+.menu-items{display:grid;grid-template-rows:0fr;overflow:hidden;opacity:0;border-top:0 solid var(--line);transition:grid-template-rows .38s cubic-bezier(.22,.8,.24,1),opacity .22s ease,border-top-width .22s ease;will-change:grid-template-rows,opacity}
+.menu-group.open .menu-items{grid-template-rows:1fr;opacity:1;border-top-width:1px}
+.menu-items-inner{min-height:0;padding:10px;overflow:hidden}
 .menu-item{display:flex;align-items:center;gap:12px;padding:11px 10px;border-radius:13px;color:var(--text);transition:background .18s ease,transform .18s ease}
 .menu-item:hover{background:rgba(139,92,246,.1);transform:translate3d(2px,0,0)}
 .menu-item-icon{width:34px;height:34px;min-width:34px;border-radius:10px;background:rgba(255,255,255,.035);border-color:var(--line)}
@@ -266,7 +277,7 @@ body > .page-glow, body > .grid-bg { z-index: 1; }
 .menu-note{margin-top:18px;padding:15px 16px;border:1px dashed rgba(139,92,246,.25);border-radius:14px;color:var(--muted);font-size:11px;line-height:1.6}
 body.menu-open{overflow:hidden}
 body.light .menu-panel{background:linear-gradient(180deg,rgba(248,248,250,.99),rgba(241,241,245,.99))}body.light .menu-head{background:rgba(248,248,250,.97)}
-@media(max-width:720px){.desktop-nav{display:none}.menu-btn{height:44px;padding:0 12px}.menu-btn .menu-label{display:none}.top-actions{gap:8px}.menu-panel{width:min(360px,86vw)}.menu-head{padding:25px 20px 18px}.menu-body{padding:18px 14px 30px}}
+@media(max-width:720px){.desktop-nav{display:none}.menu-btn{height:44px;padding:0 12px}.menu-btn .menu-label{display:none}.top-actions{gap:8px}.menu-panel{width:min(340px,82vw)}.menu-head{padding:25px 20px 18px}.menu-body{padding:18px 14px 30px}}
 @media(prefers-reduced-motion:reduce){.menu-panel,.menu-backdrop,.menu-items,.menu-chevron,.menu-item,.menu-btn{transition:none!important}}
 
 /* Consistent action icons — SVG instead of platform-dependent text glyphs. */
