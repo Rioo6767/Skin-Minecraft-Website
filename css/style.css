@@ -229,41 +229,46 @@ body > .page-glow, body > .grid-bg { z-index: 1; }
   }
 }
 
-/* ===== NexoMC Main Menu — additive styles only ===== */
-.menu-btn{height:44px;padding:0 15px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);display:flex;align-items:center;gap:9px;font-weight:800;cursor:pointer;transition:.25s}
+/* ===== NexoMC Main Menu — smooth mobile panel ===== */
+.menu-btn{height:44px;padding:0 13px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);display:flex;align-items:center;gap:9px;font-weight:800;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
 .menu-btn:hover{border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.08);transform:translateY(-1px)}
 .menu-icon{width:18px;height:18px;display:grid;align-content:center;gap:4px;flex:0 0 18px}
 .menu-icon i{display:block;height:2px;border-radius:3px;background:currentColor;width:18px}
 .menu-icon i:nth-child(2){width:12px}
 .menu-drawer{position:fixed;inset:0;z-index:100;visibility:hidden;pointer-events:none}
 .menu-drawer.open{visibility:visible;pointer-events:auto}
-.menu-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(5px);opacity:0;transition:opacity .28s}
-.menu-panel{position:absolute;top:0;right:0;width:min(470px,92vw);height:100%;background:linear-gradient(180deg,rgba(8,8,13,.98),rgba(5,5,9,.98));border-left:1px solid rgba(255,255,255,.1);box-shadow:-25px 0 80px rgba(0,0,0,.5);transform:translateX(102%);transition:transform .32s cubic-bezier(.2,.8,.2,1);overflow-y:auto}
-.menu-drawer.open .menu-backdrop{opacity:1}.menu-drawer.open .menu-panel{transform:translateX(0)}
-.menu-head{display:flex;align-items:center;justify-content:space-between;padding:30px 28px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(8,8,13,.92);backdrop-filter:blur(18px);z-index:3}
+.menu-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.60);opacity:0;transition:opacity .24s ease;will-change:opacity}
+.menu-panel{position:absolute;top:0;right:0;width:min(380px,88vw);height:100%;background:linear-gradient(180deg,rgba(8,8,13,.985),rgba(5,5,9,.985));border-left:1px solid rgba(255,255,255,.1);box-shadow:-18px 0 55px rgba(0,0,0,.42);transform:translate3d(102%,0,0);transition:transform .28s cubic-bezier(.22,.8,.24,1);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;will-change:transform;backface-visibility:hidden}
+.menu-drawer.open .menu-backdrop{opacity:1}.menu-drawer.open .menu-panel{transform:translate3d(0,0,0)}
+.menu-head{display:flex;align-items:center;justify-content:space-between;padding:28px 24px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(8,8,13,.97);z-index:3}
 .menu-title{font:700 30px/1 "Space Grotesk";letter-spacing:-1.5px}.menu-title em{font-style:normal;color:var(--accent2)}
 .menu-close{width:44px;height:44px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.04);color:var(--text);font-size:26px;line-height:1;cursor:pointer}
-.menu-body{padding:22px 20px 38px}
-.menu-group{border:1px solid rgba(139,92,246,.18);border-radius:18px;background:linear-gradient(145deg,rgba(139,92,246,.07),rgba(255,255,255,.025));overflow:hidden;margin-bottom:12px}
-.menu-group-toggle{width:100%;border:0;background:none;color:var(--text);padding:17px 18px;display:flex;align-items:center;gap:13px;text-align:left;cursor:pointer;font-weight:800;font-size:15px}
+.menu-body{padding:20px 16px 34px}
+.menu-group{border:1px solid rgba(139,92,246,.18);border-radius:18px;background:linear-gradient(145deg,rgba(139,92,246,.07),rgba(255,255,255,.025));overflow:hidden;margin-bottom:11px}
+.menu-group-toggle{width:100%;border:0;background:none;color:var(--text);padding:17px 17px;display:flex;align-items:center;gap:13px;text-align:left;cursor:pointer;font-weight:800;font-size:15px}
 .menu-group-toggle:hover{background:rgba(255,255,255,.025)}
 .menu-group-icon,.menu-item-icon{width:38px;height:38px;min-width:38px;border:1px solid rgba(139,92,246,.28);border-radius:11px;display:grid;place-items:center;background:rgba(139,92,246,.08);color:var(--accent2)}
 .menu-group-icon svg,.menu-item-icon svg{width:20px;height:20px;display:block;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .menu-group-label{flex:1}.menu-group-label small{display:block;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:.9px;margin-top:3px;text-transform:uppercase}
-.menu-chevron{width:20px;height:20px;transition:transform .25s;display:grid;place-items:center;color:var(--accent2)}
+.menu-chevron{width:20px;height:20px;transition:transform .22s ease;display:grid;place-items:center;color:var(--accent2)}
 .menu-chevron svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .menu-group.open .menu-chevron{transform:rotate(180deg)}
-.menu-items{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease;border-top:0 solid var(--line)}
-.menu-group.open .menu-items{grid-template-rows:1fr;border-top-width:1px}
-.menu-items-inner{overflow:hidden;padding:0 10px}
+/* Height animation is driven by menu.js to avoid grid reflow stutter on mobile. */
+.menu-items{max-height:0;overflow:hidden;opacity:0;border-top:0 solid var(--line);transition:max-height .28s cubic-bezier(.22,.8,.24,1),opacity .18s ease,border-top-width .2s ease}
+.menu-group.open .menu-items{opacity:1;border-top-width:1px}
+.menu-items-inner{padding:0 10px;overflow:hidden}
 .menu-group.open .menu-items-inner{padding:10px}
-.menu-item{display:flex;align-items:center;gap:12px;padding:11px 10px;border-radius:13px;color:var(--text);transition:.2s}
-.menu-item:hover{background:rgba(139,92,246,.1);transform:translateX(2px)}
+.menu-item{display:flex;align-items:center;gap:12px;padding:11px 10px;border-radius:13px;color:var(--text);transition:background .18s ease,transform .18s ease}
+.menu-item:hover{background:rgba(139,92,246,.1);transform:translate3d(2px,0,0)}
 .menu-item-icon{width:34px;height:34px;min-width:34px;border-radius:10px;background:rgba(255,255,255,.035);border-color:var(--line)}
 .menu-item-icon svg{width:18px;height:18px}
-.menu-item-text{flex:1;font-weight:700;font-size:13px}.menu-item-text small{display:block;color:var(--muted);font-weight:500;font-size:10px;margin-top:2px}
-.menu-item-arrow{color:var(--muted);font-size:16px}
-.menu-note{margin-top:20px;padding:15px 16px;border:1px dashed rgba(139,92,246,.25);border-radius:14px;color:var(--muted);font-size:11px;line-height:1.6}
+.menu-item-text{flex:1;font-weight:700;font-size:13px}.menu-item-text small{display:block;color:var(--muted);font-weight:500;font-size:10px;margin-top:2px}.menu-item-arrow{color:var(--muted);font-size:16px}
+.menu-note{margin-top:18px;padding:15px 16px;border:1px dashed rgba(139,92,246,.25);border-radius:14px;color:var(--muted);font-size:11px;line-height:1.6}
 body.menu-open{overflow:hidden}
-body.light .menu-panel{background:linear-gradient(180deg,rgba(248,248,250,.99),rgba(241,241,245,.99))}body.light .menu-head{background:rgba(248,248,250,.92)}
-@media(max-width:720px){.desktop-nav{display:none}.menu-btn{height:44px;padding:0 12px}.menu-btn .menu-label{display:none}.top-actions{gap:8px}.menu-panel{width:min(440px,94vw)}.menu-head{padding:25px 20px 18px}.menu-body{padding:18px 14px 30px}}
+body.light .menu-panel{background:linear-gradient(180deg,rgba(248,248,250,.99),rgba(241,241,245,.99))}body.light .menu-head{background:rgba(248,248,250,.97)}
+@media(max-width:720px){.desktop-nav{display:none}.menu-btn{height:44px;padding:0 12px}.menu-btn .menu-label{display:none}.top-actions{gap:8px}.menu-panel{width:min(360px,86vw)}.menu-head{padding:25px 20px 18px}.menu-body{padding:18px 14px 30px}}
+@media(prefers-reduced-motion:reduce){.menu-panel,.menu-backdrop,.menu-items,.menu-chevron,.menu-item,.menu-btn{transition:none!important}}
+
+/* Consistent action icons — SVG instead of platform-dependent text glyphs. */
+.hero-actions .btn-icon,.footer-links .btn-icon{display:inline-grid;place-items:center;width:17px;height:17px;vertical-align:middle;margin-left:4px}
+.hero-actions .btn-icon svg,.footer-links .btn-icon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
