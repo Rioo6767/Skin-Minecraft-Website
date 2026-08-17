@@ -2,8 +2,9 @@ window.NEXOMC_CONFIG = {
   siteName: "NexoMC",
   year: 2026,
 
-  // Link tombol di navbar. Akan dibuka di TAB BARU.
+  // Link halaman skin utama; navbar sekarang membuka Main Menu.
   hubUrl: "./skins/",
+  skinsUrl: "/skins/",
 
   // Kecepatan efek mengetik hero.
   typingSpeed: 85,

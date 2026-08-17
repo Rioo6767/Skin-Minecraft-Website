@@ -1,37 +1,126 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#050507"><title>NexoMC — Minecraft Network</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050507">
+  <title>NexoMC — Minecraft Skin Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<canvas id="networkCanvas" aria-hidden="true"></canvas><div class="page-glow glow-a"></div><div class="page-glow glow-b"></div><div class="grid-bg"></div>
-<header class="topbar">
-<a class="brand" href="./" aria-label="NexoMC home"><span class="brand-mark"><span></span><span></span></span><span><strong>NexoMC</strong><small><i></i> MINECRAFT NETWORK</small></span></a>
-<nav class="desktop-nav"><a href="#about">About</a><a href="#features">Features</a><a href="#footer">Contact</a></nav>
-<div class="top-actions"><button class="icon-btn" id="themeBtn" aria-label="Ganti tema">◐</button><a class="deploy-btn" href="./skins/" target="_blank" rel="noopener"><span>✦</span> NexoMC Skin <b>↗</b></a></div>
-</header>
-<main>
-<section class="hero" id="about">
-<div class="hero-copy reveal"><div class="eyebrow"><span class="pulse"></span> NEXOMC // MINECRAFT NETWORK</div>
-<h1><span id="typedTitle"></span><span class="caret">_</span></h1>
-<p class="hero-desc">Platform NexoMC untuk berbagai kebutuhan Minecraft dengan tampilan modern, ringan, dan nyaman digunakan di perangkat apa pun.</p>
-<div class="hero-actions"><a class="primary-btn" href="./skins/" target="_blank" rel="noopener">NexoMC Skin <span>↗</span></a><a class="ghost-btn" href="#features">Explore <span>⌄</span></a></div>
-<div class="hero-status"><span></span> ALL SYSTEMS OPERATIONAL</div></div>
+  <div class="page-glow glow-a"></div>
+  <div class="page-glow glow-b"></div>
+  <div class="grid-bg"></div>
 
-</section>
-<section class="stats reveal"><div><strong id="totalViews">0</strong><span>Total Views</span></div><div><strong>24/7</strong><span>Online Access</span></div><div><strong>100%</strong><span>Free Access</span></div><div><strong>1</strong><span>NexoMC Hub</span></div></section>
-<section class="feature-section reveal" id="features"><div class="feature-title"><div class="eyebrow">WHY NEXOMC</div><h2>Simple. Clean. <em>Ready.</em></h2></div><div class="feature-grid"><article><div class="feature-icon">✦</div><h3>Modern Interface</h3><p>UI clean dengan animasi halus dan layout responsive untuk desktop maupun mobile.</p></article><article><div class="feature-icon">◈</div><h3>NexoMC Hub</h3><p>Satu tempat untuk mengakses berbagai halaman dan layanan NexoMC dengan cepat.</p></article><article><div class="feature-icon">⌁</div><h3>Smooth Experience</h3><p>Background network bergerak, transisi lembut, dan navigasi yang dibuat nyaman.</p></article></div></section>
-</main>
-<footer id="footer"><div class="footer-brand"><div class="brand-mark"><span></span><span></span></div><div><strong>NexoMC</strong><p>Minecraft Network</p></div></div><div class="footer-links"><a href="#about">About</a><a href="#features">Features</a><a href="./skins/" target="_blank" rel="noopener">NexoMC Skin ↗</a></div><div class="footer-bottom">© 2026 NEXOMC NETWORK. <span>ENGINEERED FOR MINECRAFT.</span></div><div class="footer-status"><span></span> ALL SYSTEMS OPERATIONAL</div></footer>
-<script src="config.js"></script><script>
-(function(){
-const btn=document.getElementById('themeBtn');const saved=localStorage.getItem('nexomc-theme')||'dark';document.body.classList.toggle('light',saved==='light');btn.onclick=()=>{const light=!document.body.classList.contains('light');document.body.classList.toggle('light',light);localStorage.setItem('nexomc-theme',light?'light':'dark');};
-let views=Number(localStorage.getItem('nexomcViews')||0)+1;localStorage.setItem('nexomcViews',views);document.getElementById('totalViews').textContent=views;
-const words=['Welcome To NexoMC'];let wi=0,ci=0,del=false;const el=document.getElementById('typedTitle');function type(){const w=words[wi];el.textContent=w.slice(0,ci);if(!del&&ci<w.length){ci++;setTimeout(type,65)}else if(!del){del=true;setTimeout(type,1700)}else if(ci>0){ci--;setTimeout(type,32)}else{del=false;wi=(wi+1)%words.length;setTimeout(type,400)}}type();
-})();
-</script><script src="js/app.js"></script>
-</body></html>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="NexoMC home">
+      <span class="brand-mark"><span></span><span></span></span>
+      <span>
+        <strong>NexoMC</strong>
+        <small><i></i> MINECRAFT COLLECTION</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="#collection">Collection</a>
+      <a href="#faq">FAQ</a>
+      <a href="#footer">About</a>
+    </nav>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Ganti tema">◐</button>
+      <a class="deploy-btn" id="deployBtn" href="#" target="_blank" rel="noopener">
+        <span>✦</span> NexoMC Hub <b>↗</b>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="pulse"></span> PREMIUM MINECRAFT SKINS</div>
+        <h1><span id="typedTitle"></span><span class="caret">_</span></h1>
+        <p class="hero-desc">
+          Koleksi skin Minecraft pilihan dengan tampilan clean, modern, dan siap dipakai.
+          Download langsung tanpa muter-muter.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#collection">Jelajahi Collection <span>→</span></a>
+          <a class="ghost-btn" href="#faq">Cara pakai <span>⌄</span></a>
+        </div>
+        <div class="hero-status"><span></span> ALL SYSTEMS OPERATIONAL</div>
+      </div>
+
+      <div class="hero-art reveal">
+        <div class="orb"></div>
+        <div class="skin-stage">
+          <div class="scanline"></div>
+          <img id="heroSkin" src="assets/skins/skin1.png" alt="Featured Minecraft skin"
+               onerror="this.src='https://files.catbox.moe/pdm86w.jpg'">
+          <div class="stage-tag">NEXOMC // FEATURED</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats reveal">
+      <div><strong id="totalViews">0</strong><span>Total Views</span></div>
+      <div><strong id="totalDownloads">0</strong><span>Total Downloads</span></div>
+      <div><strong id="skinCount">0</strong><span>Skins Available</span></div>
+      <div><strong>100%</strong><span>Free Access</span></div>
+    </section>
+
+    <section class="section-head reveal" id="collection">
+      <div>
+        <div class="eyebrow">NEXOMC COLLECTION</div>
+        <h2>Your next <em>Minecraft Skin.</em></h2>
+        <p>Scroll ke samping untuk melihat koleksi terbaru.</p>
+      </div>
+      <div class="collection-controls">
+        <button class="round-btn" id="prevBtn" aria-label="Sebelumnya">←</button>
+        <button class="round-btn" id="nextBtn" aria-label="Berikutnya">→</button>
+      </div>
+    </section>
+
+    <section class="skin-row-wrap reveal">
+      <div class="skin-row" id="skinRow"></div>
+    </section>
+
+    <section class="feature-section reveal">
+      <div class="feature-title">
+        <div class="eyebrow">WHY NEXOMC</div>
+        <h2>Simple. Clean. <em>Ready.</em></h2>
+      </div>
+      <div class="feature-grid">
+        <article><div class="feature-icon">↓</div><h3>Direct Download</h3><p>Skin disiapkan agar pengguna bisa langsung mendapatkan file PNG tanpa harus melewati halaman iklan.</p></article>
+        <article><div class="feature-icon">◈</div><h3>Curated Collection</h3><p>Koleksi dibuat ringkas supaya kamu cepat menemukan skin yang cocok buat karakter Minecraft-mu.</p></article>
+        <article><div class="feature-icon">⌁</div><h3>Smooth Experience</h3><p>Animasi halus, horizontal collection, responsive mobile, dan tema gelap sebagai default.</p></article>
+      </div>
+    </section>
+
+    <section class="faq reveal" id="faq">
+      <div class="eyebrow">HELP CENTER</div>
+      <h2>Frequently asked <em>questions.</em></h2>
+      <div id="faqList"></div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="footer-brand">
+      <div class="brand-mark"><span></span><span></span></div>
+      <div><strong>NexoMC</strong><p>Minecraft Skin Collection</p></div>
+    </div>
+    <div class="footer-links">
+      <a href="#collection">Collection</a><a href="#faq">FAQ</a><a id="footerHub" href="#" target="_blank" rel="noopener">NexoMC Hub ↗</a>
+    </div>
+    <div class="footer-bottom">© 2026 NEXOMC NETWORK. <span>ENGINEERED FOR MINECRAFT.</span></div>
+    <div class="footer-status"><span></span> ALL SYSTEMS OPERATIONAL</div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="data/skins.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
