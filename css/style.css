@@ -1,4 +1,12 @@
 *{box-sizing:border-box;margin:0;padding:0}
+/* Global: hilangkan kotak/highlight biru bawaan browser saat tap/klik di SEMUA elemen
+   (tombol, link, input, select). Fokus tetap terlihat untuk navigasi keyboard lewat :focus-visible. */
+*{-webkit-tap-highlight-color:transparent}
+a,button,input,select,textarea{outline:none}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid rgba(155,108,255,.65);
+  outline-offset:2px;
+}
 :root{
   --bg:#050507;--bg2:#08080c;--card:rgba(14,14,18,.72);--card2:rgba(18,18,24,.9);
   --text:#f7f7fa;--muted:#92929d;--line:rgba(255,255,255,.10);
