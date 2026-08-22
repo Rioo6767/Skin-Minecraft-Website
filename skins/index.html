@@ -16,13 +16,21 @@
 .skin-page-head h1 em{font-style:normal;color:#9b6cff}
 .skin-page-head p{color:var(--muted);max-width:680px;line-height:1.7;margin-top:14px}
 .skin-back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit;border:1px solid var(--line);background:rgba(255,255,255,.04);padding:11px 15px;border-radius:12px;font-weight:700;white-space:nowrap}
-.skin-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 190px 150px;gap:10px;margin-bottom:28px}
+.skin-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:10px;margin-bottom:14px}
 .skin-search,.skin-select{height:48px;border:1px solid var(--line);border-radius:13px;background:var(--card);color:var(--text);outline:none;padding:0 15px;font:600 13px Inter,system-ui,sans-serif;backdrop-filter:blur(14px)}
 .skin-search{padding-left:43px}
 .search-wrap{position:relative}
 .search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:16px}
 .skin-search::placeholder{color:var(--muted)}
 .skin-search:focus,.skin-select:focus{border-color:rgba(139,92,246,.65);box-shadow:0 0 0 3px rgba(139,92,246,.08)}
+.skin-cat-card{border:1px solid var(--line);background:var(--card);border-radius:22px;padding:14px;margin-bottom:28px;backdrop-filter:blur(16px)}
+.skin-cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.skin-cat-pill{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--text);font:600 13px Inter,system-ui,sans-serif;cursor:pointer;transition:.2s;text-align:left;width:100%}
+.skin-cat-pill svg{width:18px;height:18px;flex:none;stroke:var(--accent2);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.skin-cat-pill:hover{border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.06)}
+.skin-cat-pill.active{background:#fff;border-color:#fff;color:#111;box-shadow:0 8px 22px rgba(0,0,0,.18)}
+.skin-cat-pill.active svg{stroke:#7c3aed}
+.skin-cat-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .skin-result{color:var(--muted);font:10px monospace;letter-spacing:1.2px;text-transform:uppercase;margin:0 0 12px}
 .skin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:20px}
 .skin-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;backdrop-filter:blur(16px);transition:.3s}
@@ -39,8 +47,9 @@
 .skin-empty{grid-column:1/-1;padding:60px;text-align:center;border:1px dashed var(--line);border-radius:20px;color:var(--muted)}
 .skin-count{display:inline-flex;align-items:center;gap:7px;margin-top:8px;color:var(--muted);font:10px monospace;letter-spacing:1px}
 .skin-count i{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
-@media(max-width:720px){.skin-toolbar{grid-template-columns:1fr 1fr}.search-wrap{grid-column:1/-1}.skin-page-head{display:block}.skin-back{margin-top:20px}}
-@media(max-width:520px){.skin-page-main{padding:48px 14px 70px}.skin-grid{grid-template-columns:1fr 1fr;gap:12px}.skin-info{padding:13px}.skin-info h2{font-size:15px}.skin-info p{font-size:10px}.skin-download{font-size:11px;padding:10px 5px}.skin-tag{font-size:8px}.skin-select{padding:0 9px;font-size:11px}}
+@media(max-width:720px){.skin-toolbar{grid-template-columns:1fr}.skin-page-head{display:block}.skin-back{margin-top:20px}}
+@media(max-width:640px){.skin-cat-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.skin-page-main{padding:48px 14px 70px}.skin-grid{grid-template-columns:1fr 1fr;gap:12px}.skin-info{padding:13px}.skin-info h2{font-size:15px}.skin-info p{font-size:10px}.skin-download{font-size:11px;padding:10px 5px}.skin-tag{font-size:8px}.skin-select{padding:0 9px;font-size:11px}.skin-cat-pill{padding:10px 10px;font-size:11px}.skin-cat-pill svg{width:16px;height:16px}}
 </style>
 </head>
 <body>
@@ -76,14 +85,15 @@
       <span class="search-icon">⌕</span>
       <input id="skinSearch" class="skin-search" type="search" placeholder="Cari nama skin..." autocomplete="off">
     </div>
-    <select id="skinCategory" class="skin-select" aria-label="Kategori">
-      <option value="all">Semua Kategori</option>
-    </select>
     <select id="skinSort" class="skin-select" aria-label="Urutkan">
       <option value="newest">Terbaru</option>
       <option value="az">A → Z</option>
       <option value="za">Z → A</option>
     </select>
+  </section>
+
+  <section class="skin-cat-card" aria-label="Kategori skin">
+    <div class="skin-cat-grid" id="skinCategory"></div>
   </section>
 
   <div class="skin-result" id="skinResult">0 SKIN</div>
@@ -100,20 +110,33 @@
   const grid = document.getElementById('skinGrid');
   const result = document.getElementById('skinResult');
   const search = document.getElementById('skinSearch');
-  const category = document.getElementById('skinCategory');
+  const categoryGrid = document.getElementById('skinCategory');
   const sort = document.getElementById('skinSort');
   const themeBtn = document.getElementById('themeBtn');
 
+  let activeCategory = 'all';
+  const ICON_ALL = '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></svg>';
+  const ICON_CAT = '<svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M9 4v16M15 4v16M5 9h14M5 15h14"/></svg>';
+
   const categories = [...new Set(allSkins.map(s => s.category || 'Minecraft Skin'))].sort();
-  categories.forEach(c => {
-    const opt=document.createElement('option');
-    opt.value=c; opt.textContent=c;
-    category.appendChild(opt);
-  });
+
+  function renderCategoryPills(){
+    const items = [{ value:'all', label:'Semua Kategori', icon:ICON_ALL }]
+      .concat(categories.map(c => ({ value:c, label:c, icon:ICON_CAT })));
+    categoryGrid.innerHTML = items.map(item => `<button type="button" class="skin-cat-pill${item.value===activeCategory?' active':''}" data-cat="${item.value}" aria-pressed="${item.value===activeCategory}">${item.icon}<span class="skin-cat-label">${item.label}</span></button>`).join('');
+    categoryGrid.querySelectorAll('.skin-cat-pill').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(activeCategory===btn.dataset.cat) return;
+        activeCategory=btn.dataset.cat;
+        renderCategoryPills();
+        render();
+      });
+    });
+  }
 
   function render(){
     const q=search.value.trim().toLowerCase();
-    const cat=category.value;
+    const cat=activeCategory;
     let list=allSkins.filter(s=>{
       const name=(s.name||'').toLowerCase();
       const c=s.category||'Minecraft Skin';
@@ -135,7 +158,8 @@
       '<div class="skin-empty">Skin yang kamu cari belum ditemukan.</div>';
   }
 
-  [search,category,sort].forEach(el=>el.addEventListener('input',render));
+  renderCategoryPills();
+  [search,sort].forEach(el=>el.addEventListener('input',render));
   const saved=localStorage.getItem('nexomc-theme')||'dark';
   document.body.classList.toggle('light',saved==='light');
   themeBtn.onclick=()=>{
